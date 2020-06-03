@@ -37514,7 +37514,16 @@ var OrderForm = function OrderForm() {
       units: allUnits,
       isPremium: allUnits >= 12 || premiumDelivery
     };
-    setForm(initialState);
+    fetch('https://api.ipdata.co/?api-key=test').then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      setForm(Object.assign(Object.assign({}, initialState), {
+        country: {
+          isInvalid: false,
+          value: data.country_name
+        }
+      }));
+    });
     dispatch(orders_1.handleAddOrders(order));
   };
 
@@ -37958,7 +37967,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55319" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55618" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
