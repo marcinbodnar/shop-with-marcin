@@ -178,7 +178,20 @@ const OrderForm: FC = () => {
             units: allUnits,
             isPremium: allUnits >= 12 || premiumDelivery
         };
-        setForm(initialState);
+
+        fetch('https://api.ipdata.co/?api-key=test')
+            .then(res => res.json())
+            .then((data) => {
+                setForm({
+                    ...initialState,
+                    country: {
+                        isInvalid: false,
+                        value: data.country_name
+                    }
+                });
+                
+            });
+        
         dispatch(handleAddOrders(order));
     };
 
